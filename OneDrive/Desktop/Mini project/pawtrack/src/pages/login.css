@@ -1,0 +1,320 @@
+/* LoginPage.css */
+
+.bg-login-background {
+  background: var(--color-background);
+  min-height: 100vh;
+}
+
+.login-container {
+  background-color: var(--color-card);
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 28rem; /* 448px */
+  margin: 0 auto;
+  animation: scaleIn 0.5s ease-out;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-logo {
+  width: 4rem;
+  height: 4rem;
+  background: linear-gradient(135deg, var(--color-primary), #9333ea);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.login-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--color-foreground);
+  margin-bottom: 0.5rem;
+}
+
+.login-subtitle {
+  color: var(--color-muted-foreground);
+  font-size: 1rem;
+}
+
+.login-tabs {
+  display: flex;
+  background-color: #f9fafb;
+  border-radius: 0.75rem;
+  padding: 0.25rem;
+  margin-bottom: 2rem;
+}
+
+.login-tab {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  border: none;
+  background: none;
+  color: var(--color-muted-foreground);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.login-tab.active {
+  background-color: var(--color-card);
+  color: var(--color-foreground);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-foreground);
+  margin-bottom: 0.5rem;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  background-color: var(--color-input);
+  transition: all 0.2s;
+}
+
+.form-input:focus {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+  border-color: var(--color-ring);
+}
+
+.input-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-muted-foreground);
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-muted-foreground);
+}
+
+/* --- Checkbox & Forgot Password (Updated for Custom Checkbox) --- */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.forgot-password {
+  font-size: 0.875rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* The main label container */
+.checkbox-wrapper {
+  position: relative; /* Crucial for positioning the custom box */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding-left: 28px; /* Creates space for our custom checkbox */
+  font-size: 0.875rem;
+  color: var(--color-muted-foreground);
+  -webkit-user-select: none; /* Prevents text selection on click */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* 1. Hide the default browser checkbox */
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* 2. Create the custom checkbox 'box' using a pseudo-element */
+.checkbox-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
+  background-color: var(--color-input);
+  border: 2px solid var(--color-border);
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+/* 3. Style the box when the real checkbox is checked */
+.checkbox-input:checked + .checkbox-label::before {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* 4. Create the checkmark (it's hidden by default) */
+.checkbox-label::after {
+  content: "";
+  position: absolute;
+  display: none; /* Hidden until checked */
+  left: 7px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+/* 5. Show the checkmark when the real checkbox is checked */
+.checkbox-input:checked + .checkbox-label::after {
+  display: block;
+}
+
+/* 6. Add a nice hover effect */
+.checkbox-wrapper:hover .checkbox-label::before {
+  border-color: var(--color-primary);
+}
+
+
+.login-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.login-button:hover:not(:disabled) {
+  background-color: #6d28d9;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgb(123 97 255 / 0.4);
+}
+
+.social-login {
+  margin-top: 1.5rem;
+}
+
+.social-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--color-muted-foreground);
+  font-size: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.social-divider::before,
+.social-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--color-border);
+}
+.social-divider span {
+  padding: 0 1rem;
+}
+
+.social-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  font-weight: 500;
+  color: var(--color-foreground);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.social-button:hover {
+  background-color: #f9fafb;
+}
+
+.support-link {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  color: var(--color-muted-foreground);
+}
+.contact-support {
+  color: var(--color-primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+.contact-support:hover {
+  text-decoration: underline;
+}
+
+.role-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 2px solid var(--color-border);
+  transition: all 0.2s;
+  cursor: pointer;
+  background: white;
+  width: 100%;
+  text-align: left;
+}
+.role-option:hover {
+  border-color: var(--color-primary);
+  background-color: rgb(123 97 255 / 0.05);
+}
+.role-option.selected {
+  border-color: var(--color-primary);
+  background-color: rgb(123 97 255 / 0.05);
+}
