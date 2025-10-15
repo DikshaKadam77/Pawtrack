@@ -20,7 +20,7 @@ const Header = () => {
 
   const navItems = [
     { id: "/", label: "Home", icon: Heart },
-    { id: "/report-animal", label: "Report Animal", icon: Plus },
+    { id: "/report", label: "Report Animal", icon: Plus },
     { id: "/dashboard", label: "NGO Dashboard", icon: BarChart3 },
     { id: "/scan", label: "Scan QR", icon: QrCode },
   ];
