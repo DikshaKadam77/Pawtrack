@@ -20,6 +20,7 @@
 }
 .container.py-8 {
   padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 .report-form-container {
   background-color: var(--card-background);
@@ -29,6 +30,7 @@
   border-radius: 1rem; /* 16px */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--border-color);
+  overflow: hidden; /* Important for animation transitions */
 }
 
 .form-group {
@@ -73,7 +75,6 @@
   color: #9CA3AF;
 }
 
-/* Better focus state for accessibility */
 .form-input:focus-visible,
 .form-select:focus-visible,
 .form-textarea:focus-visible {
@@ -108,6 +109,21 @@
   -moz-appearance: none;
   appearance: none;
   padding-right: 2.5rem; /* Make space for the arrow */
+}
+.location-button {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.25rem;
+  color: var(--muted-text-color);
+  border-radius: 99px;
+  background-color: transparent;
+  transition: color 0.2s, background-color 0.2s;
+}
+.location-button:hover {
+  color: var(--primary-color);
+  background-color: #F5F3FF;
 }
 
 /* --- Photo Upload --- */
@@ -149,11 +165,14 @@
   background-color: #F5F3FF; /* Light purple */
   border: 1px solid #C4B5FD; /* Darker purple */
   border-radius: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
 }
 .privacy-notice p {
   font-size: 0.875rem; /* 14px */
   color: #5B21B6; /* Dark purple text */
   margin: 0;
+  line-height: 1.5;
 }
 
 
@@ -181,7 +200,7 @@
 }
 
 .submit-button:active {
-    transform: translateY(1px);
+  transform: translateY(1px);
 }
 
 .submit-button:disabled {
@@ -189,6 +208,9 @@
   color: #9CA3AF;
   cursor: not-allowed;
   box-shadow: none;
+}
+.submit-button .animate-spin {
+    animation: spin 1s linear infinite;
 }
 
 /* --- Error States --- */
@@ -205,14 +227,100 @@
   margin-top: 0.5rem;
 }
 
-/* --- Animations (Optional but nice) --- */
+/* --- Base Animations --- */
 .animate-fade-in-up {
   animation: fadeIn 0.5s ease-out, slideUp 0.5s ease-out;
 }
 .animate-scale-in {
-  animation: scaleIn 0.4s ease-out;
+  animation: scaleIn 0.4s ease-out 0.1s;
+  animation-fill-mode: backwards;
 }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideUp { from { transform: translateY(20px); } to { transform: translateY(0); } }
 @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+
+/* --- NEW: Success Message Styles & Animations --- */
+.success-message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.success-icon {
+    width: 4rem; /* 64px */
+    height: 4rem;
+    color: var(--success-color);
+}
+
+.success-title {
+    font-size: 1.875rem; /* 30px */
+    font-weight: 700;
+    color: var(--text-color);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.success-text {
+    font-size: 1rem;
+    color: var(--muted-text-color);
+    max-width: 450px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.success-buttons {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.success-button-primary, .success-button-secondary {
+    flex-grow: 1;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.success-button-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+.success-button-primary:hover {
+    background-color: var(--primary-color-dark);
+}
+
+.success-button-secondary {
+    background-color: var(--card-background);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+.success-button-secondary:hover {
+    background-color: #F9FAFB;
+    border-color: #9CA3AF;
+}
+
+/* Success Message Animation */
+.animate-success {
+    animation: success-pop-in 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes success-pop-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
