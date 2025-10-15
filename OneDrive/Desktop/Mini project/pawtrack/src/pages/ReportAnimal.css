@@ -18,11 +18,14 @@
 .bg-login-background { /* You had this class on the main div */
   background-color: var(--background-color);
 }
-
+.container.py-8 {
+  padding-top: 4rem;
+}
 .report-form-container {
   background-color: var(--card-background);
   color: var(--text-color);
   padding: 2rem;
+  padding-bottom: 2.5rem;
   border-radius: 1rem; /* 16px */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--border-color);
