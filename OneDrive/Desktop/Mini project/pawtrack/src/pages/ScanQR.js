@@ -42,11 +42,11 @@ const ScanQR = () => {
     id: "QR-RPT-173678912345-1736890000",
     animalType: "dog",
     originalCondition: "injured",
-    location: "123 Main Street, Downtown",
-    treatmentDate: "1/13/2025",
-    treatedBy: "Dr. Smith - City Animal Rescue",
+    location: "Sector 3, Kharghar, Navi Mumbai",
+    treatmentDate: "1/3/2025",
+    treatedBy: "Dr. Shah - City Animal Rescue",
     status: "Fully Recovered",
-    markedHealthy: "27/9/2025",
+    markedHealthy: "27/6/2025",
     treatmentNotes: "Treated for leg injury. Bandaged and given pain medication. Follow-up recommended in 1 week.",
     isHealthy: true,
   }
@@ -116,7 +116,7 @@ const ScanQR = () => {
     e.preventDefault()
     console.log("[v0] Follow-up report submitted:", followUpData)
     setShowFollowUpForm(false)
-    setShowHealthStatus(true)
+    // REMOVED: setShowHealthStatus(true) - This will no longer be triggered on follow-up submission.
 
     const urgencyLevel = followUpData.urgency
     let message = "Follow-up report submitted successfully."
@@ -254,12 +254,6 @@ const ScanQR = () => {
                   </div>
                   <div className="scanqr-record-badges">
                     <div className="scanqr-record-badge">{treatmentRecord.id}</div>
-                    {treatmentRecord.isHealthy && (
-                      <div className="scanqr-healthy-badge">
-                        <Heart className="w-4 h-4" />
-                        <span>Healthy</span>
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
@@ -490,7 +484,8 @@ const ScanQR = () => {
                 <div>
                   <div className="scanqr-form-label">
                     <User className="w-4 h-4 text-purple-500" />
-                    <span>Your Name (Optional)</span>
+                    {/* MODIFIED: Removed "(Optional)" */}
+                    <span>Your Name</span>
                   </div>
                   <input
                     type="text"
@@ -498,17 +493,25 @@ const ScanQR = () => {
                     onChange={(e) => setFollowUpData({ ...followUpData, name: e.target.value })}
                     placeholder="Your name"
                     className="scanqr-form-input"
+                    // MODIFIED: Added required attribute
+                    required
                   />
                 </div>
 
                 <div>
-                  <label className="scanqr-form-label">Phone (Optional)</label>
+                  <div className="scanqr-form-label">
+                    <User className="w-4 h-4 text-purple-500" />
+                    {/* MODIFIED: Removed "(Optional)" and styled label */}
+                    <span>Phone</span>
+                  </div>
                   <input
                     type="tel"
                     value={followUpData.phone}
                     onChange={(e) => setFollowUpData({ ...followUpData, phone: e.target.value })}
                     placeholder="Your phone number"
                     className="scanqr-form-input"
+                    // MODIFIED: Added required attribute
+                    required
                   />
                 </div>
               </div>
