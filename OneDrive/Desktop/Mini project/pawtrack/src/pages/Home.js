@@ -31,7 +31,7 @@ const Hero = () => {
                 Saving Lives, One <span className="gradient-text">QR Code</span> at a Time
               </h1>
               <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed text-pretty max-w-2xl">
-                Paw Track connects citizens, NGOs, and volunteers in Karjat to rescue and track stray animals efficiently. Join our mission to create a safer world for our four-legged friends.
+                Paw Track connects citizens, NGOs, and volunteers  to rescue and track stray animals efficiently. Join our mission to create a safer world for our four-legged friends.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">

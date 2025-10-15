@@ -1,7 +1,10 @@
 "use client"
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { useEffect } from "react"; // Kept for consistency, though not used here directly
+import { AuthProvider } from "./context/AuthContext";
+
+// 1. Import the Toaster component from the library
+import { Toaster } from "react-hot-toast";
 
 // Page Imports
 import Home from "./pages/Home";
@@ -19,17 +22,26 @@ import "./styles.css";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/report" element={<ReportAnimal />} />
-        <Route path="/dashboard" element={<NGODashboard />} />
-        <Route path="/scan" element={<ScanQR />} />
-        <Route path="/donate" element={<DonatePage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      {/* 2. Add the Toaster component HERE. It's self-closing and sits above the Router. */}
+      <Toaster 
+        position="top-center" 
+        toastOptions={{
+          duration: 3000, // The message will stay for 3 seconds
+        }}
+      />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/report" element={<ReportAnimal />} />
+          <Route path="/dashboard" element={<NGODashboard />} />
+          <Route path="/scan" element={<ScanQR />} />
+          <Route path="/donate" element={<DonatePage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

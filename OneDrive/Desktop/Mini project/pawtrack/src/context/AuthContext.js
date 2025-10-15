@@ -1,32 +1,36 @@
-// src/context/AuthContext.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-const AuthContext = createContext(null);
+// 1. Create the context
+const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // User is null when logged out
-
-  // This login function will be called from your LoginPage
-  const login = (userData) => {
-    setUser(userData);
-  };
-
-  // This logout function will be called from the Header
-  const logout = () => {
-    setUser(null);
-  };
-
-  // The value provided to the rest of your app
-  const value = {
-    user,
-    login,
-    logout,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+// 2. Create a custom hook for easy access to the context
+export const useAuth = () => {
+    return useContext(AuthContext);
 };
 
-// A custom hook to make it easy to use the auth context in other components
-export const useAuth = () => {
-  return useContext(AuthContext);
+// 3. Create the Provider component
+export const AuthProvider = ({ children }) => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState(null); // Optional: store user info
+
+    // Login function updates the state
+    const login = (userData) => {
+        setIsLoggedIn(true);
+        setUser(userData); // e.g., { firstName: 'Diya' }
+    };
+
+    // Logout function resets the state
+    const logout = () => {
+        setIsLoggedIn(false);
+        setUser(null);
+    };
+
+    const value = {
+        isLoggedIn,
+        user,
+        login,
+        logout,
+    };
+
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
