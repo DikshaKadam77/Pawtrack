@@ -14,12 +14,13 @@ import NGODashboard from "./pages/NGODashboard";
 import DonatePage from "./pages/Donatepage";
 import ScanQR from "./pages/ScanQR";
 
+
 // CSS Imports
+import "./Components/Header.css";
 import "./pages/login.css";
 import "./pages/ReportAnimal.css";
 import "./pages/donatepage.css";
 import "./styles.css";
-
 function App() {
   return (
     <AuthProvider>

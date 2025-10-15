@@ -1,6 +1,6 @@
 // src/pages/DonatePage.js
 import { useState, useMemo, useEffect, useRef } from "react";
-import { Heart, DollarSign, Zap, Star, ShieldCheck, FileText, Users, Target, Activity } from "lucide-react";
+import { Heart, DollarSign, Zap, Star, ShieldCheck, FileText, Users, Target, Activity, IndianRupeeIcon } from "lucide-react";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import PaymentSuccess from "../Components/PaymentSuccess";
@@ -24,7 +24,7 @@ const DonatePage = () => {
 
   const donationAmounts = [
     { amount: 250, icon: Heart, description: "Feeds 5 animals" },
-    { amount: 500, icon: DollarSign, description: "Medical checkup" },
+    { amount: 500, icon: IndianRupeeIcon, description: "Medical checkup" },
     { amount: 1000, icon: Zap, description: "Emergency treatment" },
     { amount: 2500, icon: ShieldCheck, description: "Sponsor a rescue" },
   ];
@@ -138,10 +138,9 @@ const DonatePage = () => {
                 <p className="text-muted-foreground">Select an amount to see the direct impact on animal lives.</p>
               </div>
               <div className="max-w-3xl mx-auto">
-                <h3 className="font-semibold mb-2">Donation Type</h3>
-                <div className="donation-type-toggle slider-toggle" data-type={donationType}>
-                  <button onClick={() => setDonationType('one-time')} className={donationType === 'one-time' ? 'active' : ''}>One-time</button>
-                  <button onClick={() => setDonationType('monthly')} className={donationType === 'monthly' ? 'active' : ''}>Monthly <span className="badge">More Impact</span></button>
+                <div className="donation-type-toggle">
+                  <button className={`donation-type-btn ${donationType === 'one-time' ? 'active' : ''}`} onClick={() => setDonationType('one-time')}>One-Time</button>
+                  <button className={`donation-type-btn ${donationType === 'monthly' ? 'active' : ''}`} onClick={() => setDonationType('monthly')}>Monthly</button>
                 </div>
                 <h3 className="font-semibold mt-6 mb-2">Donation Amount</h3>
                 <div className="amount-grid">

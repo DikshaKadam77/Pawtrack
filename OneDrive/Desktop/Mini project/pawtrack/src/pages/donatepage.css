@@ -306,3 +306,23 @@
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+.donation-type-toggle{
+  display: inline-flex;
+  position: relative;
+  background-color: #f3f4f6;
+  border-radius: 0.75rem;
+  padding: 0.25rem;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+}
+.donation-type-btn {
+  position: relative;
+  z-index: 1; /* Keep text on top of the slider */
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  border-radius: 0.6rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}

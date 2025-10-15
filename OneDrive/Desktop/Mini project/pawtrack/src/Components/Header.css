@@ -1,0 +1,122 @@
+/* General Header Styling */
+.header {
+background-color: #ffffff;
+border-bottom: 1px solid #e5e7eb;
+position: sticky;
+top: 0;
+z-index: 50;
+width: 100%;
+}
+
+.container {
+width: 100%;
+max-width: 1280px;
+margin-left: auto;
+margin-right: auto;
+padding-left: 1rem;
+padding-right: 1rem;
+}
+
+/* This is the main flexbox container for the header layout */
+.header-container {
+display: flex;
+align-items: center;
+justify-content: space-between; /* This creates the three-part layout */
+height: 4rem; /* 64px */
+}
+
+/* Left Section (Logo) */
+/* flex: 1 helps balance the layout so the center section is truly centered */
+.header-left {
+  flex: 1;
+  height: 20px;
+  display: flex;
+  justify-content: flex-start; /* Aligns logo to the left */
+}
+
+/* Center Section (Navigation) */
+.header-center {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Ensures nav links are centered */
+  gap: 0.25rem; /* space-x-1 */
+}
+
+/* Right Section (Action Buttons) */
+/* flex: 1 helps balance the layout */
+.header-right {
+  flex: 1;
+display: flex;
+  justify-content: flex-end; /* Aligns buttons to the right */
+align-items: center;
+  gap: 0.75rem; /* space-x-3 */
+}
+
+/* --- Button and Link Styles --- */
+
+/* Center Navigation Item Styling */
+.nav-item {
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+padding: 0.5rem 1rem;
+font-size: 0.9rem;
+font-weight: 500;
+color: #4b5563;
+border-radius: 0.375rem;
+transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+white-space: nowrap; /*Prevents text from wrapping */
+}
+
+.nav-item:hover {
+background-color: #f3f4f6;
+color: #1f2937;
+}
+
+.nav-item.active {
+background-color: #ede9fe;
+color: #6d28d9;
+font-weight: 600;
+}
+
+/* General Button Styling */
+.btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+border-radius: 0.375rem;
+font-weight: 600;
+padding: 0.5rem 1rem;
+text-decoration: none;
+transition: background-color 0.2s ease-in-out;
+border: 1px solid transparent;
+white-space: nowrap;
+}
+
+.btn-primary {
+background-color: #6d28d9;
+color: #ffffff;
+}
+.btn-primary:hover {
+background-color: #5b21b6;
+}
+
+.btn-accent {
+background-color: #f59e0b;
+color: #ffffff;
+}
+.btn-accent:hover {
+background-color: #d97706;
+}
+
+.btn-outline {
+border-color: #d1d5db;
+background-color: transparent;
+color: #374151;
+}
+.btn-outline:hover {
+background-color: #f9fafb;
+}
+.btn-accent:hover {
+background-color: #d97706;
+}

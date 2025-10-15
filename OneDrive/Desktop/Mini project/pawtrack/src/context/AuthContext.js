@@ -1,36 +1,50 @@
-import React, { createContext, useContext, useState } from 'react';
+// src/context/AuthContext.js
 
-// 1. Create the context
-const AuthContext = createContext();
+"use client"
 
-// 2. Create a custom hook for easy access to the context
-export const useAuth = () => {
-    return useContext(AuthContext);
-};
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
-// 3. Create the Provider component
+// Create the context
+const AuthContext = createContext(null);
+
+// Create the provider component
 export const AuthProvider = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState(null); // Optional: store user info
+    const [user, setUser] = useState(null);
 
-    // Login function updates the state
+    // On initial load, check localStorage for a logged-in user
+    useEffect(() => {
+        try {
+            const storedUser = localStorage.getItem('pawTrackUser');
+            if (storedUser) {
+                setUser(JSON.parse(storedUser));
+            }
+        } catch (error) {
+            console.error("Failed to parse user from localStorage", error);
+            localStorage.removeItem('pawTrackUser');
+        }
+    }, []);
+
+    // Login function: stores user data in state and localStorage
     const login = (userData) => {
-        setIsLoggedIn(true);
-        setUser(userData); // e.g., { firstName: 'Diya' }
+        // This function correctly stores the ENTIRE user object, including the 'role'
+        localStorage.setItem('pawTrackUser', JSON.stringify(userData));
+        setUser(userData);
     };
 
-    // Logout function resets the state
+    // Logout function: clears user data
     const logout = () => {
-        setIsLoggedIn(false);
+        localStorage.removeItem('pawTrackUser');
         setUser(null);
     };
 
-    const value = {
-        isLoggedIn,
-        user,
-        login,
-        logout,
-    };
+    return (
+        <AuthContext.Provider value={{ user, login, logout }}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
 
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+// Custom hook to easily use the auth context
+export const useAuth = () => {
+    return useContext(AuthContext);
 };
