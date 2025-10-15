@@ -32,6 +32,8 @@ height: 4rem; /* 64px */
   height: 20px;
   display: flex;
   justify-content: flex-start; /* Aligns logo to the left */
+  
+
 }
 
 /* Center Section (Navigation) */
@@ -119,4 +121,7 @@ background-color: #f9fafb;
 }
 .btn-accent:hover {
 background-color: #d97706;
+}
+.text-lg {
+ color:#6d28d9;
 }

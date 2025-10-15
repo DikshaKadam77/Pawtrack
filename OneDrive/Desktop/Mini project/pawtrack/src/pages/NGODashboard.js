@@ -1,13 +1,14 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Download, Filter, Copy, MapPin, Phone, Calendar } from "lucide-react"
-import Header from "../Components/Header"
-import Footer from "../Components/Footer"
+import { useState, useEffect, useMemo } from "react";
+import { Download, Filter, Copy, MapPin, Phone, Calendar } from "lucide-react";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 
 const NGODashboard = () => {
-  const [statusFilter, setStatusFilter] = useState("all")
-  const [urgencyFilter, setUrgencyFilter] = useState("all")
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [urgencyFilter, setUrgencyFilter] = useState("all");
+
   const [cases, setCases] = useState([
     {
       id: "RPT-173678912345",
@@ -21,66 +22,81 @@ const NGODashboard = () => {
       reporter: "Vedant Shah",
       phone: "+91 9876543210",
     },
-  ])
+    {
+      id: "RPT-173678912346",
+      date: "2/12/2025",
+      animal: "cat",
+      condition: "stray",
+      urgency: "medium",
+      status: "in-progress",
+      description: "Stray cat found near construction site, seems hungry",
+      location: "Sector 10, Thane",
+      reporter: "Ananya Mehta",
+      phone: "+91 9123456780",
+    },
+    {
+      id: "RPT-173678912347",
+      date: "3/12/2025",
+      animal: "parrot",
+      condition: "injured wing",
+      urgency: "low",
+      status: "treated",
+      description: "Parrot with a slightly injured wing, being treated",
+      location: "Sector 5, Navi Mumbai",
+      reporter: "Rohit Patil",
+      phone: "+91 9988776655",
+    },
+  ]);
 
-  const stats = {
-    total: cases.length,
-    pending: cases.filter((c) => c.status === "pending").length,
-    inProgress: cases.filter((c) => c.status === "in-progress").length,
-    treated: cases.filter((c) => c.status === "treated").length,
-  }
+  // Filtered cases based on selected filters
+  const filteredCases = useMemo(() => {
+    return cases.filter((c) => {
+      const statusMatch = statusFilter === "all" || c.status === statusFilter;
+      const urgencyMatch = urgencyFilter === "all" || c.urgency === urgencyFilter;
+      return statusMatch && urgencyMatch;
+    });
+  }, [cases, statusFilter, urgencyFilter]);
 
-  const handleExportReports = () => {
-    console.log("Exporting reports...")
-  }
+  // Stats computed dynamically from filtered cases
+  const stats = useMemo(() => ({
+    total: filteredCases.length,
+    pending: filteredCases.filter((c) => c.status === "pending").length,
+    inProgress: filteredCases.filter((c) => c.status === "in-progress").length,
+    treated: filteredCases.filter((c) => c.status === "treated").length,
+  }), [filteredCases]);
 
   const handleCopyQRLink = (caseId) => {
-    const link = `${window.location.origin}/case/${caseId}`
-    navigator.clipboard.writeText(link)
-    // You could add a toast notification here
-  }
+    const link = `${window.location.origin}/case/${caseId}`;
+    navigator.clipboard.writeText(link);
+    alert("QR link copied!");
+  };
 
   const getUrgencyColor = (urgency) => {
     switch (urgency) {
-      case "high":
-        return "urgency-high"
-      case "medium":
-        return "urgency-medium"
-      case "low":
-        return "urgency-low"
-      default:
-        return "urgency-medium"
+      case "high": return "urgency-high";
+      case "medium": return "urgency-medium";
+      case "low": return "urgency-low";
+      default: return "urgency-medium";
     }
-  }
+  };
 
   const getStatusColor = (status) => {
     switch (status) {
-      case "pending":
-        return "status-pending"
-      case "in-progress":
-        return "status-progress"
-      case "treated":
-        return "status-treated"
-      default:
-        return "status-pending"
+      case "pending": return "status-pending";
+      case "in-progress": return "status-progress";
+      case "treated": return "status-treated";
+      default: return "status-pending";
     }
-  }
+  };
 
   useEffect(() => {
-    // Add staggered animation to dashboard cards
-    const cards = document.querySelectorAll(".dashboard-card")
+    // Animate dashboard & case cards
+    const cards = document.querySelectorAll(".dashboard-card, .case-card");
     cards.forEach((card, index) => {
-      card.style.animationDelay = `${index * 0.1}s`
-      card.classList.add("animate-slide-up")
-    })
-
-    // Add animation to case cards
-    const caseCards = document.querySelectorAll(".case-card")
-    caseCards.forEach((card, index) => {
-      card.style.animationDelay = `${(index + 4) * 0.1}s`
-      card.classList.add("animate-slide-up")
-    })
-  }, [])
+      card.style.animationDelay = `${index * 0.1}s`;
+      card.classList.add("animate-slide-up");
+    });
+  }, []);
 
   return (
     <div className="ngo-dashboard">
@@ -91,13 +107,9 @@ const NGODashboard = () => {
           {/* Header Section */}
           <div className="dashboard-header">
             <div className="dashboard-title-section">
-              <h1 className="dashboard-title">NGO Dashboard</h1>
+              <h1 className="dashboard-title"> Dashboard</h1>
               <p className="dashboard-subtitle">Manage and track animal rescue cases</p>
             </div>
-            <button className="export-btn" onClick={handleExportReports}>
-              <Download className="w-4 h-4" />
-              Export Reports
-            </button>
           </div>
 
           {/* Stats Cards */}
@@ -159,22 +171,26 @@ const NGODashboard = () => {
           {/* Active Cases Section */}
           <div className="cases-section">
             <h2 className="cases-title">Active Cases ({stats.total})</h2>
-
             <div className="cases-list">
-              {cases.map((caseItem, index) => (
+              {filteredCases.map((caseItem) => (
                 <div key={caseItem.id} className="case-card">
                   <div className="case-header">
                     <div className="case-id-section">
                       <div className="case-status-indicator"></div>
                       <span className="case-id">{caseItem.id}</span>
-                      <span className={`urgency-badge ${getUrgencyColor(caseItem.urgency)}`}>{caseItem.urgency}</span>
+                      <span className={`urgency-badge ${getUrgencyColor(caseItem.urgency)}`}>
+                        {caseItem.urgency}
+                      </span>
                     </div>
                     <div className="case-actions">
                       <div className="case-date">
                         <Calendar className="w-4 h-4" />
                         {caseItem.date}
                       </div>
-                      <button className="qr-link-btn" onClick={() => handleCopyQRLink(caseItem.id)}>
+                      <button
+                        className="qr-link-btn"
+                        onClick={() => handleCopyQRLink(caseItem.id)}
+                      >
                         <Copy className="w-4 h-4" />
                         Copy QR Link
                       </button>
@@ -213,7 +229,7 @@ const NGODashboard = () => {
 
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default NGODashboard
+export default NGODashboard;
